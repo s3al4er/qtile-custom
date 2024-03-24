@@ -1,8 +1,17 @@
 import os
 import urllib.request
 
+print("Qtile Custom Builder")
+install = input("Запустить установку(y/n)? ")
+
+if install == 'y':
+    main()
+else:
+    exit()
+
 def install_packages():
-    os.system("sudo pacman -Sy --noconfirm qtile git neofetch feh")
+    os.system("sudo pacman -Syu")
+    os.system("sudo pacman -Sy --noconfirm qtile git neofetch feh xorg")
 
 def download_wallpaper():
     # URL для скачивания обоев
@@ -12,10 +21,11 @@ def download_wallpaper():
     urllib.request.urlretrieve(wallpaper_url, wallpaper_path)
 
 def enable_autostart():
-    autostart_file = os.path.expanduser("~/.config/qtile/config.py")
+    autostart_file = os.path.expanduser("~/.xinitrc")
     autostart_commands = [
         "os.system('feh --bg-scale ~/wallpaper.jpg &')",
-        "os.system('polybar &')"
+        "os.system('polybar &')",
+        "os.system('qtile')"
     ]
     with open(autostart_file, "a") as f:
         f.write("\n")
@@ -26,6 +36,3 @@ def main():
     install_packages()
     download_wallpaper()
     enable_autostart()
-
-if __name__ == "__main__":
-    main()
