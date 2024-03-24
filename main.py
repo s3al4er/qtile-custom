@@ -1,14 +1,6 @@
 import os
 import urllib.request
 
-print("Qtile Custom Builder")
-install = input("Запустить установку(y/n)? ")
-
-if install == 'y':
-    main()
-else:
-    exit()
-
 def install_packages():
     os.system("sudo pacman -Syu")
     os.system("sudo pacman -Sy --noconfirm qtile git neofetch feh xorg")
@@ -36,3 +28,6 @@ def main():
     install_packages()
     download_wallpaper()
     enable_autostart()
+
+if __name__ == "__main__":
+    main()
